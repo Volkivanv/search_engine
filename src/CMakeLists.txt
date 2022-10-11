@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.23)
 set(MY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
-add_executable(search_engine main.cpp converterJSON.cpp invertedIndex.cpp
-        ${MY_INCLUDE_DIR}/converterJSON.h ${MY_INCLUDE_DIR}/invertedIndex.h)
+add_executable(search_engine main.cpp converterJSON.cpp invertedIndex.cpp searchEngineTest.cpp
+        ${MY_INCLUDE_DIR}/converterJSON.h ${MY_INCLUDE_DIR}/invertedIndex.h )
 #Testing system
 include(FetchContent)
 FetchContent_Declare(

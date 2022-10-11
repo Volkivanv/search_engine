@@ -16,6 +16,8 @@ std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
     std::vector<Entry> gWC;
     int i = 0;
     for(std::string text:docs){
+        std::cout<<text<<std::endl;
+        std::cout<<"check: "<< word<<std::endl;
         std::stringstream textStream;
         Entry oneTextEntry;
         textStream<<text;
@@ -29,13 +31,16 @@ std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
         }
         oneTextEntry.doc_id = i;
         oneTextEntry.count = k;
-        gWC.push_back(oneTextEntry);
+        if(k > 0){
+            gWC.push_back(oneTextEntry);
+        }
         i++;
 
 
     }
     for(Entry g:gWC){
-        std::cout<<g.doc_id<<" "<<g.count<<std::endl;
+        std::cout<<"{"<<g.doc_id<<", "<<g.count<<"}"<<", ";
     }
+    std::cout<<std::endl;
     return gWC;
 }
