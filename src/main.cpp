@@ -3,8 +3,10 @@
 #include "../include/converterJSON.h"
 #include "../include/invertedIndex.h"
 #include "gtest/gtest.h"
+#define SEARCHENGINE
+//#define USEMAIN
 
-
+#if defined(SEARCHENGINE)
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
@@ -12,7 +14,8 @@ int main(int argc, char **argv) {
 
 }
 
-/*
+#elif
+
 int main() {
 
 
@@ -75,4 +78,5 @@ int main() {
    delete converter;
     return 0;
 }
-*/
+ */
+#endif
