@@ -18,7 +18,7 @@ void InvertedIndex::updateDocumentBase(std::vector<std::string> input_docs) {
         while(!textStream.eof()){
 
             std::string buffer;
-            textStream>>buffer;
+            textStream >> buffer;
             words.push_back(buffer);
 
         }
@@ -70,7 +70,7 @@ std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
     for(std::vector<std::string> text: docsVectors){
 
         threadVec.push_back(std::thread([&gWC, text, word, i, this]{
-            Entry oneTextEntry;
+           Entry oneTextEntry;
             oneTextEntry.doc_id = i;
             oneTextEntry.count = std::count(text.begin(), text.end(), word);
             freq_dictionary_mutex.lock();
@@ -122,4 +122,33 @@ int InvertedIndex::getOneTextCount(const std::string& text, const std::string& w
 
 bool InvertedIndex::compare( Entry a, Entry b){
     return(a.doc_id<b.doc_id);
-};
+}
+
+void InvertedIndex::floodFreqDictionary(const std::string &request) {
+    std::stringstream textStream;
+    textStream << request;
+    while (!textStream.eof()) {
+        std::string buffer;
+        textStream >> buffer; //May be optimized
+        freq_dictionary.insert(std::make_pair(buffer, getWordCount(buffer)));
+    }
+}
+
+
+
+//std::map<std::string, std::vector<Entry>> InvertedIndex::getFreqDictionary() {
+//        return freq_dictionary;
+//    }
+
+std::map<std::string, std::vector<Entry>> InvertedIndex::getFreqDictionary(const std::string &request) {
+    std::map<std::string, std::vector<Entry>> freqDict;
+    std::stringstream textStream;
+    textStream << request;
+    while (!textStream.eof()) {
+        std::string buffer;
+        textStream >> buffer; //May be optimized
+        freqDict.insert(std::make_pair(buffer, getWordCount(buffer)));
+    }
+    return freqDict;
+}
+

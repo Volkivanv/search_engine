@@ -40,6 +40,9 @@ public:
     * @return возвращает подготовленный список с частотой слов
     */
     std::vector<Entry> getWordCount(const std::string& word);
+ //   std::map<std::string, std::vector<Entry>> getFreqDictionary();
+    std::map<std::string, std::vector<Entry>> getFreqDictionary(const std::string& request);
+    void floodFreqDictionary(const std::string& request);
 private:
     int getOneTextCount(const std::string& text, const std::string& word);
     static bool compare( Entry a, Entry b);
@@ -47,6 +50,7 @@ private:
     std::vector<std::string> docs; // список содержимого документов
     std::vector<std::vector<std::string>> docsVectors;
     std::map<std::string, std::vector<Entry>> freq_dictionary; // частотный словарь
+    int maxCount;
 
     std::mutex freq_dictionary_mutex;
 

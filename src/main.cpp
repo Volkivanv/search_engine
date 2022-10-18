@@ -2,6 +2,7 @@
 
 #include "../include/converterJSON.h"
 #include "../include/invertedIndex.h"
+#include "../include/searchServer.h"
 #include "gtest/gtest.h"
 #define SEARCHENGINE
 //#define USEMAIN
@@ -10,11 +11,13 @@
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
+    auto converter = new ConverterJSON();
+
     return RUN_ALL_TESTS();
 
 }
 
-#elif
+#elif defined(USEMAIN)
 
 int main() {
 
@@ -26,28 +29,12 @@ int main() {
     //converter->onlyWord(command);
     //std::cout<<command;
     InvertedIndex idx;
-  //  idx.updateDocumentBase(converter->getTextDocuments());
-    const std::vector<std::string> docs = {
-            "london is the capital of great britain",
-            "big ben is the nickname for the Great bell of the striking clock"
-    };
-    idx.updateDocumentBase(docs);
-    const std::vector<std::string> requests = {"london", "the"};
-
-    for(std::string request: requests){
-        std::stringstream requestStream;
-        requestStream<<request;
-        std::cout<<request;
-        while(!requestStream.eof()) {
-            std::string word;
-            requestStream>>word;
-            std::cout<<word;
-            std::vector<Entry> wordCount = idx.getWordCount(word);
-        }
-    }
+    idx.updateDocumentBase(converter->getTextDocuments());
+    SearchServer srv(idx);
 
 
-/*
+
+
     while(true) {
         std::cout<<"input command: write config, read or exit, "
                    "WR (write requests), SHR(show requests)"<<std::endl;
@@ -64,9 +51,12 @@ int main() {
         } else if(command == "WR") {
             converter->writeRequests("requests.json");
         } else if(command == "SHR"){
-            for(std::string s: converter->getRequests()){
-                std::cout<<s<<std::endl;
-            }
+         auto searchResult = srv.search(converter->getRequests());
+         for(auto relVec: searchResult){
+             for(auto rIdx: relVec){
+                 std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
+             }
+         }
         } else if(command == "exit") {
             break;
         } else {
@@ -78,5 +68,5 @@ int main() {
    delete converter;
     return 0;
 }
- */
+
 #endif

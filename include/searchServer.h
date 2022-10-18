@@ -31,8 +31,15 @@ requests.json
 * @return возвращает отсортированный список релевантных ответов для
 заданных запросов
 */
-    std::vector<std::vector<RelativeIndex>> search(const
-                                                   std::vector<std::string>& queries_input);
+    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queries_input);
+    void setMaxResponses(int maxResp);
+private:
+    std::vector<RelativeIndex> searchSingle(const std::string& request);
+    static bool compare( RelativeIndex a, RelativeIndex b);
 private:
     InvertedIndex& _index;
+    std::vector<std::vector<RelativeIndex>> relativeIndexes;
+    int maxMaxResponses;
+
+
 };
