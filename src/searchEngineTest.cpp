@@ -96,13 +96,13 @@ TEST(TestCaseSearchServer, TestSimple) {
     InvertedIndex idx;
     idx.updateDocumentBase(docs);
     SearchServer srv(idx);
-    srv.setMaxResponses()
+    srv.setMaxResponses(5);
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
-    for(auto relVec: result){
+   /* for(auto relVec: result){
         for(auto rIdx: relVec){
             std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
         }
-    }
+    }*/
     ASSERT_EQ(result, expected);
 }
 TEST(TestCaseSearchServer, TestTop5) {
@@ -135,19 +135,20 @@ TEST(TestCaseSearchServer, TestTop5) {
             {
                     {7, 1},
                     {14, 1},
-                    {0, 0.666666687},
-                    {1, 0.666666687},
-                    {2, 0.666666687}
+                    {0, 0.666666667},
+                    {1, 0.666666667},
+                    {2, 0.666666667}
             }
     };
     InvertedIndex idx;
     idx.updateDocumentBase(docs);
     SearchServer srv(idx);
+    //srv.setMaxResponses(5);
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
-    for(auto relVec: result){
+  /*  for(auto relVec: result){
         for(auto rIdx: relVec){
             std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
         }
-    }
+    }*/
     ASSERT_EQ(result, expected);
 }

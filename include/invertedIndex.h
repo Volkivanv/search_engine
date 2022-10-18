@@ -7,10 +7,7 @@
 #include <sstream>
 #include <thread>
 #include <mutex>
-//#include <stllock.h>
 
-#ifndef SEARCH_ENGINE_INVERTEDINDEX_H
-#define SEARCH_ENGINE_INVERTEDINDEX_H
 
 
 struct Entry {
@@ -55,6 +52,3 @@ private:
     std::mutex freq_dictionary_mutex;
 
 };
-
-
-#endif //SEARCH_ENGINE_INVERTEDINDEX_H

@@ -6,15 +6,10 @@
 #define SEARCH_ENGINE_RELATIVEINDEX_H
 
 #endif //SEARCH_ENGINE_RELATIVEINDEX_H
+//#pragma once
 #include "invertedIndex.h"
 
-struct RelativeIndex{
-    size_t doc_id;
-    float rank;
-    bool operator ==(const RelativeIndex& other) const {
-        return (doc_id == other.doc_id && rank == other.rank);
-    }
-};
+
 class SearchServer {
 public:
 /**
@@ -31,6 +26,7 @@ requests.json
 * @return возвращает отсортированный список релевантных ответов для
 заданных запросов
 */
+public:
     std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queries_input);
     void setMaxResponses(int maxResp);
 private:
@@ -39,7 +35,7 @@ private:
 private:
     InvertedIndex& _index;
     std::vector<std::vector<RelativeIndex>> relativeIndexes;
-    int maxMaxResponses;
+    int maxMaxResponses = 5;
 
 
 };

@@ -4,14 +4,13 @@
 #include "../include/invertedIndex.h"
 #include "../include/searchServer.h"
 #include "gtest/gtest.h"
-#define SEARCHENGINE
-//#define USEMAIN
+//#define SEARCHENGINE
+#define USEMAIN
 
 #if defined(SEARCHENGINE)
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
-    auto converter = new ConverterJSON();
 
     return RUN_ALL_TESTS();
 
@@ -31,6 +30,7 @@ int main() {
     InvertedIndex idx;
     idx.updateDocumentBase(converter->getTextDocuments());
     SearchServer srv(idx);
+    srv.setMaxResponses(converter->GetResponsesLimit());
 
 
 
@@ -56,7 +56,8 @@ int main() {
              for(auto rIdx: relVec){
                  std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
              }
-         }
+         };
+         converter->putAnswers(searchResult);
         } else if(command == "exit") {
             break;
         } else {

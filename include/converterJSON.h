@@ -9,6 +9,14 @@
 #include <exception>
 #include "nlohmann/json.hpp"
 
+struct RelativeIndex{
+    size_t doc_id;
+    float rank;
+    bool operator ==(const RelativeIndex& other) const {
+        return (doc_id == other.doc_id && rank == other.rank);
+    }
+};
+
 
 class ConverterJSON {
 private:
@@ -50,11 +58,12 @@ public:
 /**
 * Положить в файл answers.json результаты поисковых запросов
 */
-    void putAnswers(std::vector<std::vector<std::pair<int, float>>>
+    void putAnswers(std::vector<std::vector<RelativeIndex>>
                     answers);
 private:
     bool checkFile(std::string path);
     void readRequests(std::string url);
     static std::string readTextFile(std::string url);
     static void onlyWord(std::string & word);
+    static std::string makeReqName(int i);
 };

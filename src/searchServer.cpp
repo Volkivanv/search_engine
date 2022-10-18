@@ -47,13 +47,16 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
 
     }
     std::sort(relIdxes.begin(), relIdxes.end(),compare);
+   // int i = 0;
 
     for(auto& rIdx: relIdxes){
         rIdx.rank/=max;
+      //  i++;if(i == maxMaxResponses) break;
  //       std::cout<<rIdx.doc_id<<" "<<rIdx.rank<<std::endl;
     }
 
     // WRITE
+    if(relIdxes.size()>maxMaxResponses) relIdxes.resize(maxMaxResponses);
 
     return relIdxes;
 }

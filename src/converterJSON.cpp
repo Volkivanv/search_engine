@@ -168,10 +168,22 @@ std::vector<std::string> ConverterJSON::getRequests() {
     return requests;
 }
 
-void ConverterJSON::putAnswers(std::vector<std::vector<std::pair<int, float>>> inRelevance) {
+void ConverterJSON::putAnswers(std::vector<std::vector<RelativeIndex>> inRelevance) {
+    int i = 0;
+    for(auto reqSearch: inRelevance){
+        i++;
+        answers["answers"][makeReqName(i)]["result"] = reqSearch.size()>0;
+        int j = 0;
+        /*
+        for(auto relevance: reqSearch){
+            answers["answers"][makeReqName(i)][]
+            j++;
+        }*/
+    }
     std::ofstream file("answers.json");
     if(file) {
         file << answers;
+
     } else {
         std::cerr<<"file is not opened";
     }
@@ -216,6 +228,12 @@ void ConverterJSON::onlyWord(std::string &word) {
         }
     }
 
+}
+
+std::string ConverterJSON::makeReqName(int i) {
+    std::string s = std::to_string(i+1000);
+    s.erase(0);
+    return s;
 }
 
 
