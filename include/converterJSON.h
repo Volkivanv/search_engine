@@ -25,14 +25,14 @@ private:
     nlohmann::json answers;
     std::vector<std::string> texts;
 
-    std::vector<std::pair<int, float>> relevance;
+  //  std::vector<std::pair<int, float>> relevance;
 
 
 public:
   //  ConverterJSON() = default;
     ConverterJSON();
 
-    nlohmann::json readConfig(std::string url);
+    nlohmann::json readConfig(const std::string& url);
 
     void writeConfig(std::string url);
     void writeRequests(std::string url);
@@ -58,7 +58,7 @@ public:
 /**
 * Положить в файл answers.json результаты поисковых запросов
 */
-    void putAnswers(std::vector<std::vector<RelativeIndex>>
+    void putAnswers(const std::vector<std::vector<RelativeIndex>>&
                     answers);
 private:
     bool checkFile(std::string path);

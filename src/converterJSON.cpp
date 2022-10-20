@@ -4,30 +4,30 @@
 #include "../include/converterJSON.h"
 
 class ConfigFileMissingException: public std::exception{
-    const char* what() const noexcept override{
+    [[nodiscard]] const char* what() const noexcept override{
         return "Config file is missing";
     }
 };
 class ConfigMissingException: public std::exception{
-    const char* what() const noexcept override{
+    [[nodiscard]] const char* what() const noexcept override{
         return "Config file is empty";
     }
 };
 
 class FileMissingException: public std::exception{
-    const char* what() const noexcept override{
+    [[nodiscard]] const char* what() const noexcept override{
         return "File is missing";
     }
 };
 
 class RequestsFileMissingException: public std::exception{
-    const char* what() const noexcept override{
+    [[nodiscard]] const char* what() const noexcept override{
         return "Requests file is missing";
     }
 };
 
 class RequestMissingException: public std::exception{
-    const char* what() const noexcept override{
+    [[nodiscard]] const char* what() const noexcept override{
         return "Request file is empty";
     }
 };
@@ -42,7 +42,7 @@ ConverterJSON::ConverterJSON() {
     }
 }
 
-nlohmann::json ConverterJSON::readConfig(std::string url) {
+nlohmann::json ConverterJSON::readConfig(const std::string& url) {
     std::ifstream rFile(url);
 
 
@@ -123,10 +123,11 @@ void ConverterJSON::writeConfig(std::string url) {
 void ConverterJSON::writeRequests(std::string url) {
     nlohmann::json requests;
 
-    std::vector<std::string> req = {"London asdfsa oa df is capital of Great Britain",
+    std::vector<std::string> req = {"nkdghd oiop bnm",
+                                    "London asdfsa oa df is capital of Great Britain",
                                     "Studying at the university is so much fun because you meet a lot of unique people",
                                     "After that you register for the compulsory and optional subjects",
-                                    "Only the best graduates receive jobs at international companies, so take your time and study hard"};
+                                    "Only the best graduates receive jobs at international companies so take your time and study hard"};
 
     for(std::string &r:req){
         onlyWord(r);
@@ -168,18 +169,28 @@ std::vector<std::string> ConverterJSON::getRequests() {
     return requests;
 }
 
-void ConverterJSON::putAnswers(std::vector<std::vector<RelativeIndex>> inRelevance) {
+void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& inRelevance) {
     int i = 0;
-    for(auto reqSearch: inRelevance){
+    for(const auto& reqSearch: inRelevance){
         i++;
-        answers["answers"][makeReqName(i)]["result"] = reqSearch.size()>0;
-        int j = 0;
-        /*
-        for(auto relevance: reqSearch){
-            answers["answers"][makeReqName(i)][]
-            j++;
-        }*/
+        bool searchResult = !reqSearch.empty();
+
+        answers["answers"][makeReqName(i)]["result"] = searchResult;
+        if(searchResult) {
+            nlohmann::json relevanceList;
+            for (auto relevance: reqSearch) {
+
+                nlohmann::json relevancePair;
+                relevancePair["docid"] = relevance.doc_id;
+                relevancePair["rank"] = round(relevance.rank * 1000) / 1000;
+                relevanceList.push_back(relevancePair);
+
+            }
+
+            answers["answers"][makeReqName(i)]["relevance"] = relevanceList;
+        }
     }
+
     std::ofstream file("answers.json");
     if(file) {
         file << answers;
@@ -232,7 +243,7 @@ void ConverterJSON::onlyWord(std::string &word) {
 
 std::string ConverterJSON::makeReqName(int i) {
     std::string s = std::to_string(i+1000);
-    s.erase(0);
+    s = "request"+s.erase(0,1);
     return s;
 }
 
