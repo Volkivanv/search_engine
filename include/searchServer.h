@@ -9,6 +9,13 @@
 //#pragma once
 #include "invertedIndex.h"
 
+//struct RelativeIndex{
+//    size_t doc_id;
+//    float rank;
+//    bool operator ==(const RelativeIndex& other) const {
+//        return (doc_id == other.doc_id && rank == other.rank);
+//    }
+//};
 
 class SearchServer {
 public:
@@ -18,7 +25,7 @@ InvertedIndex,
 * чтобы SearchServer мог узнать частоту слов встречаемых в
 запросе
 */
-    SearchServer(InvertedIndex& idx) : _index(idx){ };
+    SearchServer(InvertedIndex& idx) : index(idx){ };
 /**
 * Метод обработки поисковых запросов
 * @param queries_input поисковые запросы взятые из файла
@@ -27,15 +34,15 @@ requests.json
 заданных запросов
 */
 public:
-    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queries_input);
-    void setMaxResponses(int maxResp);
+    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queriesInput);
+    void setMaxResponses(int inMaxResponses);
 private:
     std::vector<RelativeIndex> searchSingle(const std::string& request);
     static bool compare( RelativeIndex a, RelativeIndex b);
 private:
-    InvertedIndex& _index;
+    InvertedIndex& index;
     std::vector<std::vector<RelativeIndex>> relativeIndexes;
-    int maxMaxResponses = 5;
+    int maxResponses = 5;
 
 
 };

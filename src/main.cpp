@@ -4,10 +4,10 @@
 #include "../include/invertedIndex.h"
 #include "../include/searchServer.h"
 #include "gtest/gtest.h"
-//#define SEARCHENGINE
+//#define USETESTS
 #define USEMAIN
 
-#if defined(SEARCHENGINE)
+#if defined(USETESTS)
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
@@ -21,12 +21,10 @@ int main(int argc, char **argv) {
 int main() {
 
 
-    std::string command = "read";
-    std::vector<std::vector<Entry>> expected;
+    std::string command;
+
     auto converter = new ConverterJSON();
-    //std::cin>>command;
-    //converter->onlyWord(command);
-    //std::cout<<command;
+
     InvertedIndex idx;
     idx.updateDocumentBase(converter->getTextDocuments());
     SearchServer srv(idx);
@@ -35,29 +33,35 @@ int main() {
 
 
 
+
     while(true) {
-        std::cout<<"input command: write config, read or exit, "
-                   "WR (write requests), SHR(show requests)"<<std::endl;
+        std::cout<<"input command:  result (execute search engine and write answer.json), "
+                   "exit for exit"<<std::endl;
         std::cin.clear();
         std::cin>>command;
-        if(command == "write") {
-            converter -> writeConfig("config.json");
-        } else if(command == "read") {
-
-            //выяснить почему файлы не читаются
-            for(std::string x:converter->getTextDocuments()){
-                std::cout<<x<<std::endl;
-            }
-        } else if(command == "WR") {
-            converter->writeRequests("requests.json");
-        } else if(command == "SHR"){
+      //  if(command == "write") {
+      //      converter -> writeConfig("config.json");
+       // } else
+//       if(command == "read") {
+//
+//            for(const std::string& x:converter->getTextDocuments()){
+//                std::cout<<x<<std::endl;
+//            }
+//        } else if(command == "WR") {
+//            converter->writeRequests("requests.json");
+//        } else
+            if(command == "result"){
          auto searchResult = srv.search(converter->getRequests());
-         for(auto relVec: searchResult){
-             for(auto rIdx: relVec){
-                 std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
-             }
-         };
+         int i=0;
+         int sum = 0;
+         for(const auto& relVec: searchResult){
+             i++;
+             std::cout<<makeReqName(i)<<" number of result: "<< relVec.size() << std::endl;
+             sum+=relVec.size();
+         }
+         std::cout<<"Total of result "<< sum <<std::endl;
          converter->putAnswers(searchResult);
+         std::cout<<"The job is done!"<<std::endl;
         } else if(command == "exit") {
             break;
         } else {

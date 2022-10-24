@@ -1,33 +1,40 @@
 //
 // Created by Ivan on 02.09.2022.
 //
+#include <cmath>
+
 #include "../include/converterJSON.h"
 
 class ConfigFileMissingException: public std::exception{
-    [[nodiscard]] const char* what() const noexcept override{
+    // [[nodiscard]]
+    const char* what() const noexcept override{
         return "Config file is missing";
     }
 };
 class ConfigMissingException: public std::exception{
-    [[nodiscard]] const char* what() const noexcept override{
+   // [[nodiscard]]
+    const char* what() const noexcept override{
         return "Config file is empty";
     }
 };
 
 class FileMissingException: public std::exception{
-    [[nodiscard]] const char* what() const noexcept override{
+   // [[nodiscard]]
+    const char* what() const noexcept override{
         return "File is missing";
     }
 };
 
 class RequestsFileMissingException: public std::exception{
-    [[nodiscard]] const char* what() const noexcept override{
+   // [[nodiscard]]
+    const char* what() const noexcept override{
         return "Requests file is missing";
     }
 };
 
 class RequestMissingException: public std::exception{
-    [[nodiscard]] const char* what() const noexcept override{
+   // [[nodiscard]]
+    const char* what() const noexcept override{
         return "Request file is empty";
     }
 };
@@ -60,11 +67,11 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
                     if(checkFile(it.value())){
                         std::cout<<it.value()<<" found"<<std::endl;
                         texts.push_back(readTextFile(it.value()));
-                    };
+                    }
                 }
                 catch (const std::exception &x) {
                     std::cerr << "Caught exception: " << it.value()<<" "<< x.what() << std::endl;
-                    texts.push_back("");
+                    texts.emplace_back("");
                 }
             }
         };
@@ -79,7 +86,7 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
     return config;
 }
 
-void ConverterJSON::readRequests(std::string url) {
+void ConverterJSON::readRequests(const std::string& url) {
     std::ifstream rFile(url);
 
 
@@ -98,7 +105,7 @@ void ConverterJSON::readRequests(std::string url) {
 
 }
 
-void ConverterJSON::writeConfig(std::string url) {
+void ConverterJSON::writeConfig(const std::string& url) {
 
     nlohmann::json config;
     config["config"]["name"] = "MySearchEngine";
@@ -120,7 +127,7 @@ void ConverterJSON::writeConfig(std::string url) {
 
 
 }
-void ConverterJSON::writeRequests(std::string url) {
+void ConverterJSON::writeRequests(const std::string& url) {
     nlohmann::json requests;
 
     std::vector<std::string> req = {"nkdghd oiop bnm",
@@ -143,16 +150,17 @@ void ConverterJSON::writeRequests(std::string url) {
     file.close();
 
 }
-bool ConverterJSON::checkFile(std::string path) {
+bool ConverterJSON::checkFile(const std::string& path) {
     std::ifstream textFile(path);
     if(textFile){
         textFile.close();
         return true;
     } else {
         throw FileMissingException();
+        return false;
 
     }
-    return false;
+
 
 }
 
@@ -182,7 +190,7 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
 
                 nlohmann::json relevancePair;
                 relevancePair["docid"] = relevance.doc_id;
-                relevancePair["rank"] = round(relevance.rank * 1000) / 1000;
+                relevancePair["rank"] = std::round(relevance.rank * 1000) / 1000;
                 relevanceList.push_back(relevancePair);
 
             }
@@ -194,9 +202,10 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
     std::ofstream file("answers.json");
     if(file) {
         file << answers;
+        std::cout<<"answers.json is written"<<std::endl;
 
     } else {
-        std::cerr<<"file is not opened";
+        std::cerr<<"file answers.json is not opened";
     }
     file.close();
 }
@@ -241,7 +250,7 @@ void ConverterJSON::onlyWord(std::string &word) {
 
 }
 
-std::string ConverterJSON::makeReqName(int i) {
+std::string makeReqName(int i) {
     std::string s = std::to_string(i+1000);
     s = "request"+s.erase(0,1);
     return s;

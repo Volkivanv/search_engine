@@ -5,11 +5,7 @@
 #include "../include/invertedIndex.h"
 #include "../include/searchServer.h"
 #include "gtest/gtest.h"
-/*
-TEST(sample_test_case, sample_test){
-    EXPECT_EQ(1,1);
-}
- */
+
 
 void TestInvertedIndexFunctionality(
         const std::vector<std::string>& docs,
@@ -143,7 +139,7 @@ TEST(TestCaseSearchServer, TestTop5) {
     InvertedIndex idx;
     idx.updateDocumentBase(docs);
     SearchServer srv(idx);
-    //srv.setMaxResponses(5);
+
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
   /*  for(auto relVec: result){
         for(auto rIdx: relVec){

@@ -9,6 +9,9 @@
 #include <exception>
 #include "nlohmann/json.hpp"
 
+std::string makeReqName(int i);
+
+
 struct RelativeIndex{
     size_t doc_id;
     float rank;
@@ -34,8 +37,8 @@ public:
 
     nlohmann::json readConfig(const std::string& url);
 
-    void writeConfig(std::string url);
-    void writeRequests(std::string url);
+    void writeConfig(const std::string& url);
+    static void writeRequests(const std::string& url);
 
 
 /**
@@ -61,9 +64,9 @@ public:
     void putAnswers(const std::vector<std::vector<RelativeIndex>>&
                     answers);
 private:
-    bool checkFile(std::string path);
-    void readRequests(std::string url);
+    static bool checkFile(const std::string& path);
+    void readRequests(const std::string& url);
     static std::string readTextFile(std::string url);
     static void onlyWord(std::string & word);
-    static std::string makeReqName(int i);
+
 };
