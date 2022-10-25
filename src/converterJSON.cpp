@@ -182,20 +182,34 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
     for(const auto& reqSearch: inRelevance){
         i++;
         bool searchResult = !reqSearch.empty();
+        nlohmann::json resultPair;
+        resultPair["result"] = searchResult;
 
-        answers["answers"][makeReqName(i)]["result"] = searchResult;
-        if(searchResult) {
-            nlohmann::json relevanceList;
-            for (auto relevance: reqSearch) {
-
+        if(!searchResult) {
+            answers["answers"][makeReqName(i)] = resultPair;
+        }else if(searchResult) {
+            if(reqSearch.size() == 1) {
                 nlohmann::json relevancePair;
-                relevancePair["docid"] = relevance.doc_id;
-                relevancePair["rank"] = std::round(relevance.rank * 1000) / 1000;
-                relevanceList.push_back(relevancePair);
+                relevancePair["docid"] = reqSearch[0].doc_id;
+                relevancePair["rank"] = std::round(reqSearch[0].rank * 1000)/1000;
+                answers["answers"][makeReqName(i)] = {resultPair, relevancePair};
 
+            } else {
+                nlohmann::json relevanceList;
+                for (auto relevance: reqSearch) {
+
+                    nlohmann::json relevancePair;
+                    relevancePair["docid"] = relevance.doc_id;
+                    relevancePair["rank"] = std::round(relevance.rank * 1000)/1000 ;
+
+                    relevanceList.push_back(relevancePair);
+
+                }
+
+                nlohmann::json requestAnswerPair;
+                requestAnswerPair["relevance"] = relevanceList;
+                answers["answers"][makeReqName(i)] = {resultPair,requestAnswerPair};
             }
-
-            answers["answers"][makeReqName(i)]["relevance"] = relevanceList;
         }
     }
 
