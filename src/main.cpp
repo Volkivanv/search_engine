@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
 #elif defined(USEMAIN)
 
 int main() {
+    std::cout<<PROJECT_VERSION<<std::endl;
 
 
     std::string command;

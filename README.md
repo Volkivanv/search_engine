@@ -7,6 +7,26 @@
 ### nlohmann_json для конвертации в JSON формат  и обратно.
 ### Библиотека Google Test для осуществления модульного тестирования
 
-## Запуск на локальной машине
+### Запуск на локальной машине
+1. Скачать проект с github
+2. собрать проект
+### подготовка к запуску
+   1. создать файл config.json в папке с исполняемым файлом.
+   config.json должен иметь следующую структуру:
+{
+         "config":{
+            "max_responses":5,
+            "name":"MySearchEngine",
+            "version":"0.1"
+         },
+         "files":[
+                 "resources/file001.txt",
+                 "resources/file002.txt",
+                 "resources/file003.txt",
+                 "resources/file004.txt"
+         ]
+} 
+2. в config.json указать пути к файлам по которым будет осуществляться поиск.
+3. файл request
 
 
