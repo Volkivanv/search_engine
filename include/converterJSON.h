@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <exception>
+#include <sstream>
 #include "nlohmann/json.hpp"
 
 std::string makeReqName(int i);

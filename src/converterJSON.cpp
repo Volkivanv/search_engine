@@ -61,6 +61,11 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
         }else{
             std::cout<<config["config"]["name"]<<std::endl;
             std::cout<<config["config"]["version"]<<std::endl;
+            std::stringstream version;
+            version << VERSION_CMAKE_PROJECT;
+            if(version.str() != config["config"]["version"])
+                std::cerr << "config.json has incorrect file version" << std::endl;
+
             std::cout<<GetResponsesLimit()<<std::endl;
             for (auto it = config["files"].begin(); it != config["files"].end(); ++it){
                 try {

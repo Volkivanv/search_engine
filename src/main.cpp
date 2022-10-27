@@ -4,8 +4,14 @@
 #include "../include/invertedIndex.h"
 #include "../include/searchServer.h"
 #include "gtest/gtest.h"
+
+
 //#define USETESTS
 #define USEMAIN
+
+
+
+
 
 #if defined(USETESTS)
 
@@ -19,8 +25,6 @@ int main(int argc, char **argv) {
 #elif defined(USEMAIN)
 
 int main() {
-    std::cout<<PROJECT_VERSION<<std::endl;
-
 
     std::string command;
 
