@@ -3,7 +3,7 @@
 //
 #include <cmath>
 
-#include "../include/converterJSON.h"
+#include "converterJSON.h"
 
 class ConfigFileMissingException: public std::exception{
     // [[nodiscard]]
@@ -59,6 +59,7 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
         if(config["config"].empty()){
             throw ConfigMissingException();
         }else{
+            configSuit = true;
             std::cout<<config["config"]["name"]<<std::endl;
             std::cout<<config["config"]["version"]<<std::endl;
             std::stringstream version;
@@ -267,6 +268,10 @@ void ConverterJSON::onlyWord(std::string &word) {
         }
     }
 
+}
+
+bool ConverterJSON::getConfigSuit() {
+    return configSuit;
 }
 
 std::string makeReqName(int i) {

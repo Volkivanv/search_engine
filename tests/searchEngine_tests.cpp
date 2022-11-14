@@ -1,9 +1,9 @@
 //
 // Created by Ivan on 11.10.2022.
 //
-#include "../include/converterJSON.h"
-#include "../include/invertedIndex.h"
-#include "../include/searchServer.h"
+#include "converterJSON.h"
+#include "invertedIndex.h"
+#include "searchServer.h"
 #include "gtest/gtest.h"
 
 

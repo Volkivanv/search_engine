@@ -28,6 +28,7 @@ private:
     nlohmann::json requestsJson;
     nlohmann::json answers;
     std::vector<std::string> texts;
+    bool configSuit = false;
 
   //  std::vector<std::pair<int, float>> relevance;
 
@@ -64,6 +65,7 @@ public:
 */
     void putAnswers(const std::vector<std::vector<RelativeIndex>>&
                     answers);
+    bool getConfigSuit();
 private:
     static bool checkFile(const std::string& path);
     void readRequests(const std::string& url);
