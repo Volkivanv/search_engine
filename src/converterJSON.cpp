@@ -114,7 +114,7 @@ void ConverterJSON::readRequests(const std::string& url) {
 void ConverterJSON::writeConfig(const std::string& url) {
 
     nlohmann::json config;
-    config["config"]["name"] = "MySearchEngine";
+    config["config"]["name"] = appName;
     config["config"]["version"] = "0.1";
     config["config"]["max_responses"] = 5;
     config["files"] = {"resources/file001.txt",

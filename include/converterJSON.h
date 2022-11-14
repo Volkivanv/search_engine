@@ -29,6 +29,7 @@ private:
     nlohmann::json answers;
     std::vector<std::string> texts;
     bool configSuit = false;
+    const std::string appName = "MySearchEngine";
 
   //  std::vector<std::pair<int, float>> relevance;
 
