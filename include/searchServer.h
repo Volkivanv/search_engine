@@ -34,10 +34,10 @@ requests.json
 заданных запросов
 */
 public:
-    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queriesInput);
+    std::vector<std::vector<RelativeIndex>> search(const std::vector<std::string>& queriesInput) const;
     void setMaxResponses(int inMaxResponses);
 private:
-    std::vector<RelativeIndex> searchSingle(const std::string& request);
+    std::vector<RelativeIndex> searchSingle(const std::string& request) const;
     static bool compare( RelativeIndex a, RelativeIndex b);
 private:
     InvertedIndex& index;

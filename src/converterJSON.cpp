@@ -170,11 +170,11 @@ bool ConverterJSON::checkFile(const std::string& path) {
 
 }
 
-int ConverterJSON::GetResponsesLimit() {
+int ConverterJSON::GetResponsesLimit() const{
     return config["config"]["max_responses"];
 }
 
-std::vector<std::string> ConverterJSON::getRequests() {
+std::vector<std::string> ConverterJSON::getRequests(){
     std::vector<std::string> requests;
 
     for (auto it = requestsJson["requests"].begin(); it != requestsJson["requests"].end(); ++it){
@@ -230,7 +230,7 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
     file.close();
 }
 
-std::vector<std::string> ConverterJSON::getTextDocuments() {
+std::vector<std::string> ConverterJSON::getTextDocuments() const {
 
     return texts;
 }
@@ -270,7 +270,7 @@ void ConverterJSON::onlyWord(std::string &word) {
 
 }
 
-bool ConverterJSON::getConfigSuit() {
+bool ConverterJSON::getConfigSuit() const{
     return configSuit;
 }
 

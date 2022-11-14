@@ -49,13 +49,13 @@ public:
 * @return Возвращает список с содержимым файлов перечисленных
 * в config.json
 */
-    std::vector<std::string> getTextDocuments();
+    std::vector<std::string> getTextDocuments() const;
 /**
 * Метод считывает поле max_responses для определения предельного
 * количества ответов на один запрос
 * @return
 */
-    int GetResponsesLimit();
+    int GetResponsesLimit() const;
 /**
 * Метод получения запросов из файла requests.json
 * @return возвращает список запросов из файла requests.json
@@ -66,7 +66,7 @@ public:
 */
     void putAnswers(const std::vector<std::vector<RelativeIndex>>&
                     answers);
-    bool getConfigSuit();
+    bool getConfigSuit() const;
 private:
     static bool checkFile(const std::string& path);
     void readRequests(const std::string& url);

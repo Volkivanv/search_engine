@@ -4,7 +4,7 @@
 
 #include "searchServer.h"
 
-std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queriesInput) {
+std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queriesInput) const{
     std::vector<std::vector<RelativeIndex>> searchIndex;
     for(std::string request: queriesInput){
 
@@ -13,7 +13,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<s
     return searchIndex;
 }
 
-std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request) {
+std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request) const{
     std::vector<RelativeIndex> relIdxes;
     std::map<size_t , size_t> relIdxMap;
     auto freqDict = index.getFreqDictionary(request);
