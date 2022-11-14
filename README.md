@@ -43,7 +43,7 @@
  ##### ..............................
 
 ### Результат
-Пример результата можно найти в файле https://github.com/Volkivanv/search_engine/blob/855cfe7fc4621823a07a0e4a96027e0fd88b7134/cmake-build-debug/answers.json.
+Пример результата можно найти в файле [cmake-build-debug/answers.json](https://github.com/Volkivanv/search_engine/blob/04b18ae83e3776dbe78da77f8174ec4d05d6d5f6/cmake-build-debug/answers.json)
 
 #### ● answers — базовое поле в этом файле, которое содержит ответы на запросы.
 #### ● request001 … 003 — идентификатор запроса, по которому сформирован ответ.
