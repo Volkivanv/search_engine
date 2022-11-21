@@ -5,8 +5,9 @@
 #ifndef SEARCH_ENGINE_RELATIVEINDEX_H
 #define SEARCH_ENGINE_RELATIVEINDEX_H
 
+
 #endif //SEARCH_ENGINE_RELATIVEINDEX_H
-//#pragma once
+#pragma once
 #include "invertedIndex.h"
 
 //struct RelativeIndex{
@@ -38,7 +39,7 @@ public:
     void setMaxResponses(int inMaxResponses);
 private:
     std::vector<RelativeIndex> searchSingle(const std::string& request) const;
-    static bool compare( RelativeIndex a, RelativeIndex b);
+ //   static bool compare( RelativeIndex a, RelativeIndex b);
 private:
     InvertedIndex& index;
     std::vector<std::vector<RelativeIndex>> relativeIndexes;

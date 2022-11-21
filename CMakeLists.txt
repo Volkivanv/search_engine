@@ -25,9 +25,6 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
 
-
-set(CMAKE_CXX_STANDARD 14)
-
 set(gtest_disable_pthreads on)
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)

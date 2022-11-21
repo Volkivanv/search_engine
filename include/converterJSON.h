@@ -1,6 +1,11 @@
 //
 // Created by Ivan on 02.09.2022.
 //
+#ifndef SEARCH_ENGINE_CONVERTERJSON_H
+#define SEARCH_ENGINE_CONVERTERJSON_H
+
+
+#endif //SEARCH_ENGINE_CONVERTERJSON_H
 #pragma once
 #include <iostream>
 #include <fstream>
@@ -19,6 +24,7 @@ struct RelativeIndex{
     bool operator ==(const RelativeIndex& other) const {
         return (doc_id == other.doc_id && rank == other.rank);
     }
+
 };
 
 
@@ -31,11 +37,11 @@ private:
     bool configSuit = false;
     const std::string appName = "MySearchEngine";
 
-  //  std::vector<std::pair<int, float>> relevance;
+
 
 
 public:
-  //  ConverterJSON() = default;
+
     ConverterJSON();
 
     nlohmann::json readConfig(const std::string& url);

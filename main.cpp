@@ -1,5 +1,5 @@
 
-
+//#pragma once
 #include "converterJSON.h"
 #include "invertedIndex.h"
 #include "searchServer.h"

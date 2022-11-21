@@ -52,7 +52,7 @@ std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
 
 
 
-    std::sort(gWC.begin(), gWC.end(),compare);
+    std::sort(gWC.begin(), gWC.end());
 /*
     for(Entry g:gWC){
         std::cout<<"{"<<g.doc_id<<", "<<g.count<<"}"<<", ";
@@ -63,9 +63,9 @@ std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
 }
 
 
-bool InvertedIndex::compare( Entry a, Entry b){
-    return(a.doc_id<b.doc_id);
-}
+//bool InvertedIndex::compare( Entry a, Entry b){
+//    return(a.doc_id<b.doc_id);
+//}
 
 
 

@@ -1,7 +1,7 @@
 # search_engine
 ## Локальный поисковый движок.
 На вход подаются файлы config.json где указываются тексты по которым будет производится поиск по указанным в requests.json запросам.
-На выходе в качестве результата выдается answers.json в котором по каждому из запросам список относительных релевантностей каждого из текстов.
+На выходе в качестве результата выдается answers.json, в котором по каждому из запросов список относительных релевантностей каждого из текстов.
 
 ## используемые технологии
 ### nlohmann_json для конвертации в JSON формат  и обратно.
@@ -11,7 +11,7 @@
 1. Скачать проект с github
 2. собрать проект
 ### подготовка к запуску
-   1. создать папке с запускаемым exe файлом файл config.json и request.json. За основу можно взять файлы [cmake-build-debug/config.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/config.json) и [cmake-build-debug/requests.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/requests.json)
+   1. создать папке с исполняемым файлом файл config.json и request.json. За основу можно взять файлы [cmake-build-debug/config.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/config.json) и [cmake-build-debug/requests.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/requests.json)
    2. в config.json в поле "max_responses" необходимо указать максимальное количество ответов на один запрос.
    3. в config.json в поле files указать пути к файлам по которым будет осуществляться поиск. В качестве примера указаны пути:  
   ##### "files":["resources/file001.txt",

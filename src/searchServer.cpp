@@ -19,7 +19,7 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
     auto freqDict = index.getFreqDictionary(request);
 
     for(auto it = freqDict.begin();it!=freqDict.end();++it){
-   //     std::cout<<it->first <<" ";
+
         for(auto p: it->second){
             auto ItMap = relIdxMap.find(p.doc_id);
             if(ItMap!=relIdxMap.end()){
@@ -28,15 +28,15 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
                 relIdxMap.insert(std::make_pair(p.doc_id,p.count));
             }
 
-     //       std::cout<<"{"<<p.doc_id<<","<<p.count<<"}, ";
+
 
         }
-    //    std::cout<<std::endl;
+
 
     }
     float max = 0;
     for(auto mPair: relIdxMap){
-   //     std::cout<<mPair.first<<" "<<mPair.second<<std::endl;
+
         RelativeIndex rIdx;
         if(mPair.second > 0){
             if(mPair.second > max) max = mPair.second;
@@ -46,7 +46,10 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
         }
 
     }
-    std::sort(relIdxes.begin(), relIdxes.end(),compare);
+    std::sort(relIdxes.begin(), relIdxes.end(),[](RelativeIndex a, RelativeIndex b){
+        if( a.rank == b.rank) return a.doc_id < b.doc_id;
+        else return (a.rank > b.rank);
+    });
 
 
     for(auto& rIdx: relIdxes){
@@ -60,10 +63,7 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
     return relIdxes;
 }
 
-bool SearchServer::compare(RelativeIndex a, RelativeIndex b) {
-    if( a.rank == b.rank) return a.doc_id < b.doc_id;
-    else return (a.rank > b.rank);
-}
+
 
 void SearchServer::setMaxResponses(int inMaxResponses) {
     maxResponses = inMaxResponses;

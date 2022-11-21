@@ -1,7 +1,9 @@
 //
 // Created by Ivan on 02.09.2022.
 //
-#include <cmath>
+
+#define CONSTRUCT
+
 
 #include "converterJSON.h"
 
