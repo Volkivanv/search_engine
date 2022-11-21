@@ -2,7 +2,7 @@
 // Created by Ivan on 02.09.2022.
 //
 
-#define CONSTRUCT
+//#define CONSTRUCT
 
 
 #include "converterJSON.h"
@@ -112,7 +112,7 @@ void ConverterJSON::readRequests(const std::string& url) {
     }
 
 }
-
+#if defined (CONSTRUCT)
 void ConverterJSON::writeConfig(const std::string& url) {
 
     nlohmann::json config;
@@ -158,6 +158,7 @@ void ConverterJSON::writeRequests(const std::string& url) {
     file.close();
 
 }
+#endif
 bool ConverterJSON::checkFile(const std::string& path) {
     std::ifstream textFile(path);
     if(textFile){

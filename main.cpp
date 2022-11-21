@@ -46,17 +46,19 @@ int main() {
                      "exit for exit" << std::endl;
         std::cin.clear();
         std::cin >> command;
-        //  if(command == "write") {
-        //      converter -> writeConfig("config.json");
-        // } else
-//       if(command == "read") {
-//
-//            for(const std::string& x:converter->getTextDocuments()){
-//                std::cout<<x<<std::endl;
-//            }
-//        } else if(command == "WR") {
-//            converter->writeRequests("requests.json");
-//        } else
+#if defined(CONSTRUCT)
+        if(command == "write") {
+              converter -> writeConfig("config.json");
+        } else
+        if(command == "read") {
+
+           for(const std::string& x:converter->getTextDocuments()){
+                std::cout<<x<<std::endl;
+            }
+        } else if(command == "WR") {
+            converter->writeRequests("requests.json");
+        } else
+#endif
         if (command == "result") {
             auto searchResult = srv.search(converter->getRequests());
             int i = 0;
