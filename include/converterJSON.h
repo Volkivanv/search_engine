@@ -1,11 +1,7 @@
 //
 // Created by Ivan on 02.09.2022.
 //
-#ifndef SEARCH_ENGINE_CONVERTERJSON_H
-#define SEARCH_ENGINE_CONVERTERJSON_H
 
-
-#endif //SEARCH_ENGINE_CONVERTERJSON_H
 #pragma once
 #include <iostream>
 #include <fstream>

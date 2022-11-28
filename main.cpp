@@ -1,28 +1,8 @@
 
-//#pragma once
 #include "converterJSON.h"
 #include "invertedIndex.h"
 #include "searchServer.h"
 #include "gtest/gtest.h"
-
-
-//#define USETESTS
-#define USEMAIN
-
-
-
-
-
-#if defined(USETESTS)
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-
-    return RUN_ALL_TESTS();
-
-}
-
-#elif defined(USEMAIN)
 
 int main() {
 
@@ -46,19 +26,7 @@ int main() {
                      "exit for exit" << std::endl;
         std::cin.clear();
         std::cin >> command;
-#if defined(CONSTRUCT)
-        if(command == "write") {
-              converter -> writeConfig("config.json");
-        } else
-        if(command == "read") {
 
-           for(const std::string& x:converter->getTextDocuments()){
-                std::cout<<x<<std::endl;
-            }
-        } else if(command == "WR") {
-            converter->writeRequests("requests.json");
-        } else
-#endif
         if (command == "result") {
             auto searchResult = srv.search(converter->getRequests());
             int i = 0;
@@ -86,4 +54,4 @@ int main() {
 }
 
 
-#endif
+//#endif

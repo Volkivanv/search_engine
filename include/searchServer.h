@@ -2,11 +2,7 @@
 // Created by Ivan on 14.10.2022.
 //
 
-#ifndef SEARCH_ENGINE_RELATIVEINDEX_H
-#define SEARCH_ENGINE_RELATIVEINDEX_H
 
-
-#endif //SEARCH_ENGINE_RELATIVEINDEX_H
 #pragma once
 #include "invertedIndex.h"
 

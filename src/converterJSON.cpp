@@ -2,7 +2,7 @@
 // Created by Ivan on 02.09.2022.
 //
 
-//#define CONSTRUCT
+
 
 
 #include "converterJSON.h"
@@ -112,53 +112,7 @@ void ConverterJSON::readRequests(const std::string& url) {
     }
 
 }
-#if defined (CONSTRUCT)
-void ConverterJSON::writeConfig(const std::string& url) {
 
-    nlohmann::json config;
-    config["config"]["name"] = appName;
-    config["config"]["version"] = "0.1";
-    config["config"]["max_responses"] = 5;
-    config["files"] = {"resources/file001.txt",
-                       "resources/file002.txt",
-                       "resources/file003.txt",
-                       "resources/file004.txt"};
-
-
-    std::ofstream file(url);
-    if(file) {
-        file << config;
-    } else {
-        std::cerr<<"file is not opened";
-    }
-    file.close();
-
-
-}
-void ConverterJSON::writeRequests(const std::string& url) {
-    nlohmann::json requests;
-
-    std::vector<std::string> req = {"nkdghd oiop bnm",
-                                    "London asdfsa oa df is capital of Great Britain",
-                                    "Studying at the university is so much fun because you meet a lot of unique people",
-                                    "After that you register for the compulsory and optional subjects",
-                                    "Only the best graduates receive jobs at international companies so take your time and study hard"};
-
-    for(std::string &r:req){
-        onlyWord(r);
-        requests["requests"].push_back(r);
-    }
-
-    std::ofstream file(url);
-    if(file) {
-        file << requests;
-    } else {
-        std::cerr<<"file is not opened";
-    }
-    file.close();
-
-}
-#endif
 bool ConverterJSON::checkFile(const std::string& path) {
     std::ifstream textFile(path);
     if(textFile){

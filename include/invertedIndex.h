@@ -2,11 +2,6 @@
 // Created by Ivan on 30.09.2022.
 //
 
-#ifndef SEARCH_ENGINE_INVERTEDINDEX_H
-#define SEARCH_ENGINE_INVERTEDINDEX_H
-
-
-#endif //SEARCH_ENGINE_INVERTEDINDEX_H
 
 
 #pragma once

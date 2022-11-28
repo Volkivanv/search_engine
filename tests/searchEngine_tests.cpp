@@ -141,10 +141,6 @@ TEST(TestCaseSearchServer, TestTop5) {
     SearchServer srv(idx);
 
     std::vector<std::vector<RelativeIndex>> result = srv.search(request);
-  /*  for(auto relVec: result){
-        for(auto rIdx: relVec){
-            std::cout<<rIdx.doc_id<<" "<< rIdx.rank<<std::endl;
-        }
-    }*/
+
     ASSERT_EQ(result, expected);
 }
