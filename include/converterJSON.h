@@ -33,46 +33,25 @@ private:
     bool configSuit = false;
     const std::string appName = "MySearchEngine";
 
-
-
-
 public:
 
     ConverterJSON();
 
     nlohmann::json readConfig(const std::string& url);
 
-    void writeConfig(const std::string& url);
-    static void writeRequests(const std::string& url);
+    [[nodiscard]] std::vector<std::string> getTextDocuments() const;
 
+    [[nodiscard]] int GetResponsesLimit() const;
 
-/**
-* Метод получения содержимого файлов
-* @return Возвращает список с содержимым файлов перечисленных
-* в config.json
-*/
-    std::vector<std::string> getTextDocuments() const;
-/**
-* Метод считывает поле max_responses для определения предельного
-* количества ответов на один запрос
-* @return
-*/
-    int GetResponsesLimit() const;
-/**
-* Метод получения запросов из файла requests.json
-* @return возвращает список запросов из файла requests.json
-*/
     std::vector<std::string> getRequests();
-/**
-* Положить в файл answers.json результаты поисковых запросов
-*/
+
     void putAnswers(const std::vector<std::vector<RelativeIndex>>&
                     answers);
-    bool getConfigSuit() const;
+    [[nodiscard]] bool getConfigSuit() const;
 private:
     static bool checkFile(const std::string& path);
     void readRequests(const std::string& url);
-    static std::string readTextFile(std::string url);
+    static std::string readTextFile(const std::string& url);
     static void onlyWord(std::string & word);
 
 };

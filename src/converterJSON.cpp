@@ -8,34 +8,34 @@
 #include "converterJSON.h"
 
 class ConfigFileMissingException: public std::exception{
-    // [[nodiscard]]
+     [[nodiscard]]
     const char* what() const noexcept override{
         return "Config file is missing";
     }
 };
 class ConfigMissingException: public std::exception{
-   // [[nodiscard]]
+    [[nodiscard]]
     const char* what() const noexcept override{
         return "Config file is empty";
     }
 };
 
 class FileMissingException: public std::exception{
-   // [[nodiscard]]
+    [[nodiscard]]
     const char* what() const noexcept override{
         return "File is missing";
     }
 };
 
 class RequestsFileMissingException: public std::exception{
-   // [[nodiscard]]
+    [[nodiscard]]
     const char* what() const noexcept override{
         return "Requests file is missing";
     }
 };
 
 class RequestMissingException: public std::exception{
-   // [[nodiscard]]
+    [[nodiscard]]
     const char* what() const noexcept override{
         return "Request file is empty";
     }
@@ -82,7 +82,7 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
                     texts.emplace_back("");
                 }
             }
-        };
+        }
 
 
         rFile.close();
@@ -103,7 +103,7 @@ void ConverterJSON::readRequests(const std::string& url) {
         rFile >> requestsJson;
         if(requestsJson["requests"].empty()){
             throw RequestMissingException();
-        };
+        }
 
         rFile.close();
     }else{
@@ -115,16 +115,8 @@ void ConverterJSON::readRequests(const std::string& url) {
 
 bool ConverterJSON::checkFile(const std::string& path) {
     std::ifstream textFile(path);
-    if(textFile){
-        textFile.close();
-        return true;
-    } else {
-        throw FileMissingException();
-        return false;
-
-    }
-
-
+    if(!textFile)throw FileMissingException();
+    return textFile.is_open();
 }
 
 int ConverterJSON::GetResponsesLimit() const{
@@ -192,7 +184,7 @@ std::vector<std::string> ConverterJSON::getTextDocuments() const {
     return texts;
 }
 
-std::string ConverterJSON::readTextFile(std::string url) {
+std::string ConverterJSON::readTextFile(const std::string& url) {
     std::ifstream notebook;
     std::string answer;
     notebook.open(url);
@@ -224,6 +216,8 @@ void ConverterJSON::onlyWord(std::string &word) {
             word.erase(i,1);
         }
     }
+
+
 
 }
 

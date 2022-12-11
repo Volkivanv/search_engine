@@ -6,7 +6,7 @@
 
 std::vector<std::vector<RelativeIndex>> SearchServer::search(const std::vector<std::string> &queriesInput) const{
     std::vector<std::vector<RelativeIndex>> searchIndex;
-    for(std::string request: queriesInput){
+    for(const std::string& request: queriesInput){
 
     searchIndex.push_back(searchSingle(request));
     }
@@ -18,9 +18,9 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
     std::map<size_t , size_t> relIdxMap;
     auto freqDict = index.getFreqDictionary(request);
 
-    for(auto it = freqDict.begin();it!=freqDict.end();++it){
+    for(auto & it : freqDict){
 
-        for(auto p: it->second){
+        for(auto p: it.second){
             auto ItMap = relIdxMap.find(p.doc_id);
             if(ItMap!=relIdxMap.end()){
                 ItMap->second += p.count;
@@ -28,20 +28,17 @@ std::vector<RelativeIndex> SearchServer::searchSingle(const std::string &request
                 relIdxMap.insert(std::make_pair(p.doc_id,p.count));
             }
 
-
-
         }
-
 
     }
     float max = 0;
     for(auto mPair: relIdxMap){
 
-        RelativeIndex rIdx;
+        RelativeIndex rIdx{};
         if(mPair.second > 0){
-            if(mPair.second > max) max = mPair.second;
+            if(float (mPair.second) > max) max = float(mPair.second);
             rIdx.doc_id = mPair.first;
-            rIdx.rank = mPair.second;
+            rIdx.rank = float(mPair.second);
             relIdxes.push_back(rIdx);
         }
 
