@@ -10,7 +10,7 @@ set(JSON_BuildTests OFF CACHE INTERNAL "")
 set(MY_SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(MY_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 
-add_subdirectory(nlohmann_json)
+
 add_subdirectory(tests)
 
 
@@ -29,14 +29,14 @@ set(gtest_disable_pthreads on)
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-FetchContent_MakeAvailable(googletest)
+#FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-#include(FetchContent)
-#FetchContent_Declare(json URL
-#                    https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
-#FetchContent_MakeAvailable(json)
+include(FetchContent)
+FetchContent_Declare(json URL
+        https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(googletest json)
 
 
 add_executable(search_engine main.cpp include/converterJSON.h src/converterJSON.cpp include/invertedIndex.h src/invertedIndex.cpp include/searchServer.h src/searchServer.cpp tests/searchEngine_tests.cpp)
@@ -48,3 +48,4 @@ target_link_libraries(search_engine PRIVATE gtest_main)
 include(GoogleTest)
 
 gtest_discover_tests(search_engine)
+
