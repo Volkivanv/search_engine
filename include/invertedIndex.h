@@ -21,8 +21,9 @@ struct Entry {
     }
     bool operator<(const Entry &other) const
     {
-        return (doc_id < other.doc_id &&
-               count < other.count);
+//        return (doc_id < other.doc_id &&
+//               count < other.count);
+        return (doc_id < other.doc_id);
     }
 };
 class InvertedIndex {

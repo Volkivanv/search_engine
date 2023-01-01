@@ -8,7 +8,7 @@
 #include "converterJSON.h"
 
 class ConfigFileMissingException: public std::exception{
-     [[nodiscard]]
+    [[nodiscard]]
     const char* what() const noexcept override{
         return "Config file is missing";
     }
