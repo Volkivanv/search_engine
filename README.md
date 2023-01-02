@@ -11,7 +11,7 @@
 1. Скачать проект с github
 2. собрать проект
 ### подготовка к запуску
-   1. создать папке с исполняемым файлом файл config.json и request.json. За основу можно взять файлы [cmake-build-debug/config.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/config.json) и [cmake-build-debug/requests.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/cmake-build-debug/requests.json)
+   1. создать папке с исполняемым файлом файл config.json и request.json. За основу можно взять файлы [examples/config.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/examples/config.json) и [examples/requests.json](https://github.com/Volkivanv/search_engine/blob/b417d6f804d19a90ad45d7e9c2efa56ca1a49713/examples/requests.json)
    2. в config.json в поле "max_responses" необходимо указать максимальное количество ответов на один запрос.
    3. в config.json в поле files указать пути к файлам по которым будет осуществляться поиск. В качестве примера указаны пути:  
   ##### "files":["resources/file001.txt",
@@ -43,7 +43,7 @@
  ##### ..............................
 
 ### Результат
-Пример результата можно найти в файле [cmake-build-debug/answers.json](https://github.com/Volkivanv/search_engine/blob/04b18ae83e3776dbe78da77f8174ec4d05d6d5f6/cmake-build-debug/answers.json)
+Пример результата можно найти в файле [examples/answers.json](https://github.com/Volkivanv/search_engine/blob/04b18ae83e3776dbe78da77f8174ec4d05d6d5f6/examples/answers.json)
 
 #### ● answers — базовое поле в этом файле, которое содержит ответы на запросы.
 #### ● request001 … 003 — идентификатор запроса, по которому сформирован ответ.
