@@ -5,9 +5,6 @@
 #include "invertedIndex.h"
 
 
-
-
-
 void InvertedIndex::updateDocumentBase(std::vector<std::string> inputDocs) {
     docs = std::move(inputDocs);
     for(std::string& text: docs){

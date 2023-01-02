@@ -207,11 +207,9 @@ std::string ConverterJSON::readTextFile(const std::string& url) {
 
 void ConverterJSON::onlyWord(std::string &word) {
 
-
-
     for(int i = word.length()-1; i >= 0; i-- ){
         char c = word[i];
-        if(!(((c >= 'a')&&(c <= 'z'))||((c >= 'A')&&(c <='Z'))||((c >= '0')&&(c <='9'))||(c == '-')||(c == ' ')))
+        if(!(std::isalnum(c)||(c == '-')||std::isspace(c)))
         {
             word.erase(i,1);
         }

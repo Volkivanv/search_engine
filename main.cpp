@@ -21,9 +21,10 @@ int main() {
     srv.setMaxResponses(converter->GetResponsesLimit());
 
 
+
     while (true) {
-        std::cout << "input command:  result (execute search engine and write answer.json), "
-                     "exit for exit" << std::endl;
+        std::cout << "If you want to execute search engine and write answer.json, please input \"result\"." << std::endl;
+        std::cout << "If you want to exit, please input \"exit\"." << std::endl;
         std::cin.clear();
         std::cin >> command;
 
@@ -54,4 +55,3 @@ int main() {
 }
 
 
-//#endif
