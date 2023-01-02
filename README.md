@@ -32,8 +32,10 @@
  ##### "resources/file001.txt" found - означает что file001.txt" по указанному пути найден
  ##### "resources/file003.txt" found - -//-
  ##### "resources/file004.txt" found - -//-
- ##### input command:  result (execute search engine and write answer.json), exit for exit - набор дальнейших команд.
  ##### Caught exception: "resources/file002.txt" File is missing - означает что file002.txt" по указанному пути не найден
+ ##### Предлагается набор дальнейших команд:
+ ##### If you want to execute search engine and write answer.json, please input "result".
+ ##### If you want to exit, please input "exit" 
  ##### Для продолжения требуется ввести команду result
  ##### программа производит поиск по файлам и составляется файл answer.json в котором находится результат запроса
  ##### В консоль при этом выдается количество найденных результатов по каждому запросу. Это количество текстов в которых ненулевой индекс релевантности и это количество ограничено значением max_responses.
