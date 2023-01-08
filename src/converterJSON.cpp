@@ -159,18 +159,22 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
 
                     relevanceList.push_back(relevancePair);
 
+
                 }
 
                 nlohmann::json requestAnswerPair;
                 requestAnswerPair["relevance"] = relevanceList;
                 answers["answers"][makeReqName(i)] = {resultPair,requestAnswerPair};
+
             }
         }
     }
 
+
+
     std::ofstream file("answers.json");
     if(file) {
-        file << answers;
+        file << answers.dump(4);
         std::cout<<"answers.json is written"<<std::endl;
 
     } else {
