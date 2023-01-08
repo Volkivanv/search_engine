@@ -6,9 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <exception>
-#include <sstream>
 #include "nlohmann/json.hpp"
 #include "invertedIndex.h"
 

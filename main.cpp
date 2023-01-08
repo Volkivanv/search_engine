@@ -1,8 +1,6 @@
 
 #include "converterJSON.h"
-#include "invertedIndex.h"
 #include "searchServer.h"
-//#include "gtest/gtest.h"
 
 int main() {
 
