@@ -175,7 +175,7 @@ void ConverterJSON::putAnswers(const std::vector<std::vector<RelativeIndex>>& in
     std::ofstream file("answers.json");
     if(file) {
         file << answers.dump(4);
-        std::cout<<"answers.json is written"<<std::endl;
+        std::cout <<"answers.json is written"<< std::endl;
 
     } else {
         std::cerr<<"file answers.json is not opened";
