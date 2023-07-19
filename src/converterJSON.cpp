@@ -85,12 +85,12 @@ nlohmann::json ConverterJSON::readConfig(const std::string& url) {
         }
 
 
-        rFile.close();
+
     }else{
         throw ConfigFileMissingException();
 
     }
-
+    rFile.close();
     return config;
 }
 
@@ -105,11 +105,11 @@ void ConverterJSON::readRequests(const std::string& url) {
             throw RequestMissingException();
         }
 
-        rFile.close();
     }else{
         throw RequestsFileMissingException();
 
     }
+    rFile.close();
 
 }
 
@@ -202,10 +202,10 @@ std::string ConverterJSON::readTextFile(const std::string& url) {
             answer+=wordFind+" ";
             n++;
         }
-        notebook.close();
     } else {
         std::cerr << "File is not found!"<< std::endl;
     }
+    notebook.close();
     return answer;
 }
 

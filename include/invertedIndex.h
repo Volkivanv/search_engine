@@ -44,9 +44,6 @@ public:
     std::map<std::string, std::vector<Entry>> getFreqDictionary(const std::string& request);
 
 private:
-
-
-private:
     std::vector<std::string> docs;
     std::vector<std::vector<std::string>> docsVectors;
     std::map<std::string, std::vector<Entry>> freqDictionary;
