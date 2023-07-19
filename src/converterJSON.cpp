@@ -41,6 +41,7 @@ class RequestMissingException: public std::exception{
     }
 };
 
+
 ConverterJSON::ConverterJSON() {
     try {
         readConfig("config.json");
@@ -125,9 +126,12 @@ int ConverterJSON::GetResponsesLimit() const{
 
 std::vector<std::string> ConverterJSON::getRequests(){
     std::vector<std::string> requests;
+    int requestNum = 0;
 
     for (auto it = requestsJson["requests"].begin(); it != requestsJson["requests"].end(); ++it){
         requests.push_back(it.value());
+        requestNum++;
+        if(requestNum > maxRequestNum) break;
     }
     return requests;
 }
@@ -198,7 +202,7 @@ std::string ConverterJSON::readTextFile(const std::string& url) {
         while ((!notebook.eof()) && (n < 1000)) {
             std::string wordFind;
             notebook >> wordFind;
-            onlyWord(wordFind);
+            InvertedIndex::onlyWord(wordFind);
             answer+=wordFind+" ";
             n++;
         }
@@ -209,19 +213,7 @@ std::string ConverterJSON::readTextFile(const std::string& url) {
     return answer;
 }
 
-void ConverterJSON::onlyWord(std::string &word) {
 
-    for(int i = word.length()-1; i >= 0; i-- ){
-        char c = word[i];
-        if(!(std::isalnum(c)||(c == '-')||std::isspace(c)))
-        {
-            word.erase(i,1);
-        }
-    }
-
-
-
-}
 
 bool ConverterJSON::getConfigSuit() const{
     return configSuit;

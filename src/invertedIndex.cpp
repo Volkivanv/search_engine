@@ -14,12 +14,14 @@ void InvertedIndex::updateDocumentBase(std::vector<std::string> inputDocs) {
 
         textStream<<text;
         std::vector<std::string> words;
-        while(!textStream.eof()){
+        int numWordInRequest = 0;
+        while(!textStream.eof() && numWordInRequest < maxWordsInRequest){
 
             std::string buffer;
             textStream >> buffer;
+            onlyWord(buffer);
             words.push_back(buffer);
-
+            numWordInRequest++;
         }
         docsVectors.push_back(words);
     }
@@ -29,21 +31,32 @@ void InvertedIndex::updateDocumentBase(std::vector<std::string> inputDocs) {
 
 std::vector<Entry> InvertedIndex::getWordCount(const std::string &word) {
     std::vector<Entry> gWC;
+    int processNumberLimit = 4;
+    int processNumber = 0;
     int i = 0;
     std::vector<std::thread> threadVec;
     for(const std::vector<std::string>& text: docsVectors){
-
-        threadVec.emplace_back([&gWC, text, word, i, this]{
+        threadVec.emplace_back([&gWC, text, word, i, &processNumber, processNumberLimit, this]{
+            if (processNumber > processNumberLimit) {
+                std::unique_lock<std::mutex> lck(freqDictionaryMutex);
+                while (processNumber > processNumberLimit) {
+                condition.wait(lck);
+                }
+            }
+            processNumber++;
            Entry oneTextEntry{};
             oneTextEntry.doc_id = i;
             oneTextEntry.count = std::count(text.begin(), text.end(), word);
-            freqDictionaryMutex.lock();
+
             if(oneTextEntry.count > 0){
                 gWC.push_back(oneTextEntry);
             }
-            freqDictionaryMutex.unlock();
+
+            processNumber--;
+            condition.notify_all();
         });
         i++;
+
     }
     for(std::thread & th: threadVec){
         th.join();
@@ -68,3 +81,16 @@ std::map<std::string, std::vector<Entry>> InvertedIndex::getFreqDictionary(const
     return freqDict;
 }
 
+void InvertedIndex::onlyWord(std::string &word) {
+
+
+    for (int i = word.length() - 1; i >= 0; i--) {
+
+        char c = word[i];
+        if (isalpha(c) && !islower(c)) word[i] = tolower(c);
+
+        if (!(std::isalnum(c) || (c == '-') || std::isspace(c))) {
+            word.erase(i, 1);
+        }
+    }
+}

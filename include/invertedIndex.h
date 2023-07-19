@@ -10,7 +10,8 @@
 #include <vector>
 #include <map>
 #include <sstream>
-
+#include <iostream>
+#include <condition_variable>
 
 struct RelativeIndex{
     size_t doc_id;
@@ -43,6 +44,8 @@ public:
 
     std::map<std::string, std::vector<Entry>> getFreqDictionary(const std::string& request);
 
+    static void onlyWord(std::string & word);
+
 private:
     std::vector<std::string> docs;
     std::vector<std::vector<std::string>> docsVectors;
@@ -50,5 +53,7 @@ private:
 
 
     std::mutex freqDictionaryMutex;
+    std::condition_variable condition;
+    int maxWordsInRequest = 20;
 
 };
