@@ -44,6 +44,7 @@ private:
     static bool checkFile(const std::string& path);
     void readRequests(const std::string& url);
     static std::string readTextFile(const std::string& url);
+    static void onlyWord(std::string & word);
     int maxRequestNum = 1000;
 
 

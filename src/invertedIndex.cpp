@@ -14,14 +14,12 @@ void InvertedIndex::updateDocumentBase(std::vector<std::string> inputDocs) {
 
         textStream<<text;
         std::vector<std::string> words;
-        int numWordInRequest = 0;
-        while(!textStream.eof() && numWordInRequest < maxWordsInRequest){
+
+        while(!textStream.eof()){
 
             std::string buffer;
             textStream >> buffer;
-            onlyWord(buffer);
             words.push_back(buffer);
-            numWordInRequest++;
         }
         docsVectors.push_back(words);
     }
@@ -73,24 +71,13 @@ std::map<std::string, std::vector<Entry>> InvertedIndex::getFreqDictionary(const
     std::map<std::string, std::vector<Entry>> freqDict;
     std::stringstream textStream;
     textStream << request;
-    while (!textStream.eof()) {
+    int numWordsInRequest = 0;
+    while (!textStream.eof() && numWordsInRequest < maxNumWordInRequest) {
         std::string buffer;
         textStream >> buffer;
         freqDict.insert(std::make_pair(buffer, getWordCount(buffer)));
+        numWordsInRequest++;
     }
     return freqDict;
 }
 
-void InvertedIndex::onlyWord(std::string &word) {
-
-
-    for (int i = word.length() - 1; i >= 0; i--) {
-
-        char c = word[i];
-        if (isalpha(c) && !islower(c)) word[i] = tolower(c);
-
-        if (!(std::isalnum(c) || (c == '-') || std::isspace(c))) {
-            word.erase(i, 1);
-        }
-    }
-}

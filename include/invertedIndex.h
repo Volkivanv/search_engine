@@ -44,16 +44,16 @@ public:
 
     std::map<std::string, std::vector<Entry>> getFreqDictionary(const std::string& request);
 
-    static void onlyWord(std::string & word);
+
 
 private:
     std::vector<std::string> docs;
     std::vector<std::vector<std::string>> docsVectors;
     std::map<std::string, std::vector<Entry>> freqDictionary;
 
-
+    int maxNumWordInRequest = 10;
     std::mutex freqDictionaryMutex;
     std::condition_variable condition;
-    int maxWordsInRequest = 20;
+
 
 };

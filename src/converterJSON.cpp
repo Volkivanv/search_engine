@@ -129,7 +129,9 @@ std::vector<std::string> ConverterJSON::getRequests(){
     int requestNum = 0;
 
     for (auto it = requestsJson["requests"].begin(); it != requestsJson["requests"].end(); ++it){
-        requests.push_back(it.value());
+        std::string requestRaw = it.value();
+        onlyWord(requestRaw);
+        requests.push_back(requestRaw);
         requestNum++;
         if(requestNum > maxRequestNum) break;
     }
@@ -202,7 +204,7 @@ std::string ConverterJSON::readTextFile(const std::string& url) {
         while ((!notebook.eof()) && (n < 1000)) {
             std::string wordFind;
             notebook >> wordFind;
-            InvertedIndex::onlyWord(wordFind);
+            onlyWord(wordFind);
             answer+=wordFind+" ";
             n++;
         }
@@ -225,7 +227,19 @@ std::string makeReqName(int i) {
     return s;
 }
 
+void ConverterJSON::onlyWord(std::string &word) {
 
+
+    for (int i = word.length() - 1; i >= 0; i--) {
+
+        char c = word[i];
+        if (isalpha(c) && !islower(c)) word[i] = tolower(c);
+
+        if (!(std::isalnum(c) || (c == '-') || std::isspace(c))) {
+            word.erase(i, 1);
+        }
+    }
+}
 
 
 
